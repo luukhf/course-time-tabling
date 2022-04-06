@@ -194,7 +194,28 @@ def create_solution(filename: str):
     
     # return the solution in dictionary form
     return dict(sol_students), dict(sol_courses)
+def HappinessList(n:int) :
+    """Creates a list which we will use to give the happiness values. [8, .., 1] by default but you can change this to be anything"""
+    return [8-i for i in range(n)]
 
+def HappinessMeter(solution) -> int:
+    """Calculates the total happiness for a given solution in dictionary form (dictionary with courses as the keys)"""
+    key_list = list(solution)
+    TotalHappiness = 0
+    for i in range(len(solution)):
+        HappinessCounter = 0
+        for j in range(len(solution[key_list[i]])):
+            index = np.where(df_students["Student ID"] == solution[key_list[i]][j])[0][0]
+            if list(np.where(df_students.loc[index] == key_list[i])[0]) == []:
+                points = -1  #-1 by default, but we can change this
+            else:
+                pointscolumn = min(np.where(df_students.loc[index] == key_list[i])[0])
+                points = HappinessList(len(df_students.loc[0])-2)[pointscolumn-2]
+            HappinessCounter = HappinessCounter + points
+        
+        TotalHappiness = TotalHappiness + HappinessCounter
+    return   TotalHappiness
+        
 Happystats = []
 best_crs = sol_courses #simply for the sake of having an innitial comparison point
 
