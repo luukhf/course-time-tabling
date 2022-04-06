@@ -194,6 +194,25 @@ def create_solution(filename: str):
     
     # return the solution in dictionary form
     return dict(sol_students), dict(sol_courses)
+Happystats = []
+best_crs = sol_courses #simply for the sake of having an innitial comparison point
+
+for i in range(10):
+    print(i)
+    #make a new solution
+    sol_students = defaultdict(list)
+    sol_courses = defaultdict(list)
+    not_enough_credits = get_not_enough_credits()
+    not_enough_students = get_not_enough_students()
+    sol_students, sol_courses = create_solution()
+    #grade the solution
+    happy = HappinessMeter(sol_courses)
+    Happystats += [happy]
+    #store the best solution
+    if happy > HappinessMeter(best_crs):
+        best_crs = sol_courses
+        best_stu = sol_students
+        
 
 def output_solution(sol_students, sol_courses, filename: str = 'algorithm'):
     """Write the solution dictionaries (students, courses) to an Excel file.
