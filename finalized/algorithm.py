@@ -194,10 +194,11 @@ def create_solution(filename: str):
     
     # return the solution in dictionary form
     return dict(sol_students), dict(sol_courses)
+
 Happystats = []
 best_crs = sol_courses #simply for the sake of having an innitial comparison point
 
-for i in range(10):
+for i in range(10):  #Loops and keeps the best 
     print(i)
     #make a new solution
     sol_students = defaultdict(list)
@@ -213,6 +214,9 @@ for i in range(10):
         best_crs = sol_courses
         best_stu = sol_students
         
+#I dont want to change the names and cause problems, so lets rename them back
+sol_courses = best_crs 
+sol_students = best_stu
 
 def output_solution(sol_students, sol_courses, filename: str = 'algorithm'):
     """Write the solution dictionaries (students, courses) to an Excel file.
